@@ -10,12 +10,11 @@ const cors = require('cors');
 app.use(cors({ origin: true }));
 
 
-const PROMPT = `
-Describe to me an activity or mental exercise for a child that will boost their self-esteem.
-Say it as if you were speaking to the child directly.
-Have a sense of humor.
-Make the activity something that requires the child's imaginatio.
-`
+
+
+
+
+
 
 const port = process.env.PORT || 3000
 
@@ -23,16 +22,29 @@ app.listen(port, ()=> {
     console.log(`listening on port ${port}`)
 })
 
+app.use(express.json()); //Used to parse JSON bodies
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
-app.get('/test', async (req, res, next)=> {
-
+app.post('/test', async (req, res, next)=> {
+    console.log('req.body:', req.body)
+    const { topic } = req.body
+    console.log('topic:', topic)
     try {
         const { Configuration, OpenAIApi } = require("openai");
         const configuration = new Configuration({
         apiKey: process.env.OPENAI_API_KEY,
         });
         const openai = new OpenAIApi(configuration);
+
+        const PROMPT = `
+        Describe to me an activity or mental exercise for a child that will boost their self-esteem.
+        Say it as if you were speaking to the child directly.
+        Have a sense of humor.
+        Make the activity something that requires the child's imagination.
+        This activity should also be about ${topic}
+        `
+
+
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: PROMPT,
