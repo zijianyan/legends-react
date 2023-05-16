@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
+
 function App() {
   const [text, setText] = useState('')
   const [loading, setLoading] = useState(false)
@@ -11,7 +12,6 @@ function App() {
   const [chosenTopic, setChosenTopic] = useState(null)
 
   useEffect(()=> {
-
     axios.get('/topics')
       .then((res)=> {
         console.log('res.data:', res.data)
@@ -28,11 +28,20 @@ function App() {
       console.log('e.target:', e.target)
       // console.log('e.target.value:', e.target.value)
       // const { text } = e.target.value
-      const text =  e.target.getAttribute("data-text");
+      const text = e.target.getAttribute("data-text");
   
       console.log('text:', text)
       setChosenTopic(text)
+
+      axios.get(`/video?text=${encodeURIComponent(text)}}`)
+      .then( res => {
+        console.log('res.data:', res.data)
+        setVideoId(res.data)
+      })
+      .catch( err => console.log('err:', err))
+
     }
+
   }
 
   // useEffect(()=> {

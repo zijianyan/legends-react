@@ -6,12 +6,15 @@ const app = express()
 const path = require('path')
 const functions = require('firebase-functions')
 const cors = require('cors');
+const axios = require('axios')
 
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
 apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
+
+const VIDEO_ID = 'D9OOXCu5XMg'
 
 const ACTIVITY_PROMPT = `
 Describe to me an activity or mental exercise for a child that will boost their self-esteem;
@@ -26,6 +29,9 @@ The topic should be very specific, but described in 4 words max;
 Make it a bit quirky;
 Max 1 topic;
 `
+
+console.log('process.env.YOUTUBE_API_KEY:', process.env.YOUTUBE_API_KEY)
+
 
 app.use(cors({ origin: true }));
 
@@ -48,7 +54,7 @@ app.get('/topics', async (req, res, next)=> {
             max_tokens: 1000,
             n: 4
         })
-        console.log('response:', response)
+        // console.log('response:', response)
         const { choices } = response?.data
         console.log('choices:', choices)
         // const { text } = response?.data?.choices[0]
@@ -57,6 +63,39 @@ app.get('/topics', async (req, res, next)=> {
     } catch (err) {
         console.log('err:', err)
     }
+})
+
+app.get('/video', (req, res, next) => {
+    console.log('req.query:', req.query)
+    // const { text } = req.query
+
+    // const YOUTUBE_API = 'https://www.googleapis.com/youtube/v3/search'
+
+    console.log('req.query.text:', req.query.text)
+
+    // const textURIEncoded = encodeURIComponent(text)
+
+    // const youTubeAPI = `${YOUTUBE_API}?q=${textURIEncoded}`
+
+    // console.log('textURIEncoded:', textURIEncoded)
+
+    // const youTubeAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(req.query.text)}`
+
+    // console.log('process.env.YOUTUBE_API_KEY:', process.env.YOUTUBE_API_KEY)
+    // axios.get(youTubeAPI, {
+    //     headers: {
+    //         'Authorization': `Bearer ${process.env.YOUTUBE_API_KEY}`
+    //     }
+    // })
+    // .then( _res => {
+    //     console.log('_res:', _res)
+    //     res.send(_res)
+    // })
+    // .catch( err => console.log('err:', err))
+
+
+    res.send('D9OOXCu5XMg')    
+
 })
 
 app.post('/test', async (req, res, next)=> {
