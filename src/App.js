@@ -7,28 +7,64 @@ function App() {
   const [text, setText] = useState('')
   const [loading, setLoading] = useState(false)
   const [videoId, setVideoId] = useState('')
-  const [topic, setTopic] = useState('')
+  const [topics, setTopics] = useState([])
+  const [chosenTopic, setChosenTopic] = useState('')
 
   useEffect(()=> {
-    setLoading(true)
-    setVideoId('D9OOXCu5XMg') // temp
-    axios.post('/test', { topic })
+
+    axios.get('/topics')
       .then((res)=> {
         console.log('res.data:', res.data)
-        setText(res.data)
-      })
-      .then(()=> {
-        setLoading(false)
+        setTopics(res.data)
       })
       .catch((err)=> {
         console.log('err:', err)
       })
+
   }, [])
+
+  function handleClickTopic(e) {
+    console.log('e.target:', e.target)
+    // console.log('e.target.value:', e.target.value)
+    // const { text } = e.target.value
+    const text =  e.target.getAttribute("data-text");
+
+    console.log('text:', text)
+    setChosenTopic(text)
+  }
+
+  // useEffect(()=> {
+  //   setLoading(true)
+  //   setVideoId('D9OOXCu5XMg') // temp
+
+
+
+
+
+  //   axios.post('/test', { topic })
+  //     .then((res)=> {
+  //       console.log('res.data:', res.data)
+  //       setText(res.data)
+  //     })
+  //     .then(()=> {
+  //       setLoading(false)
+  //     })
+  //     .catch((err)=> {
+  //       console.log('err:', err)
+  //     })
+  // }, [])
 
   return (
     <div className="App">
       <header className="App-header">
         <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <ul>
+          Topics:
+          {topics.map( topic => <li onClick={handleClickTopic} data-text={topic.text}>{topic.text}</li>)}
+        </ul>
+        <p>
+          Chosen topic: {chosenTopic}
+        </p>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           {loading ? 'Loading...' : text}
