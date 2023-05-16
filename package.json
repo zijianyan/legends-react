@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:dev": "npm run build && node app/index.js",
+    "dev": "npm run build && PORT=3000 node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
