@@ -17,9 +17,6 @@ Have a sense of humor.
 Make the activity something that requires the child's imaginatio.
 `
 
-console.log('process.env.OPENAI_API_KEY:', process.env.OPENAI_API_KEY)
-
-
 const port = process.env.PORT || 3000
 
 app.listen(port, ()=> {
