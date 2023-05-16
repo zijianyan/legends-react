@@ -6,9 +6,9 @@ import React, { useEffect, useState } from 'react'
 function App() {
   const [text, setText] = useState('')
   const [loading, setLoading] = useState(false)
-  const [videoId, setVideoId] = useState('')
+  const [videoId, setVideoId] = useState(null)
   const [topics, setTopics] = useState([])
-  const [chosenTopic, setChosenTopic] = useState('')
+  const [chosenTopic, setChosenTopic] = useState(null)
 
   useEffect(()=> {
 
@@ -24,13 +24,15 @@ function App() {
   }, [])
 
   function handleClickTopic(e) {
-    console.log('e.target:', e.target)
-    // console.log('e.target.value:', e.target.value)
-    // const { text } = e.target.value
-    const text =  e.target.getAttribute("data-text");
-
-    console.log('text:', text)
-    setChosenTopic(text)
+    if (!chosenTopic) {
+      console.log('e.target:', e.target)
+      // console.log('e.target.value:', e.target.value)
+      // const { text } = e.target.value
+      const text =  e.target.getAttribute("data-text");
+  
+      console.log('text:', text)
+      setChosenTopic(text)
+    }
   }
 
   // useEffect(()=> {
@@ -58,10 +60,19 @@ function App() {
     <div className="App">
       <header className="App-header">
         <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        <ul>
-          Topics:
-          {topics.map( topic => <li onClick={handleClickTopic} data-text={topic.text}>{topic.text}</li>)}
-        </ul>
+        {
+          chosenTopic
+            ? <></>
+            : <ul>
+                Topics:
+                {topics.map( topic => <li onClick={handleClickTopic} data-text={topic.text}>{topic.text}</li>)}
+              </ul>
+             
+
+        }
+        
+        
+        
         <p>
           Chosen topic: {chosenTopic}
         </p>
