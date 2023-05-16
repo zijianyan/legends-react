@@ -65,6 +65,26 @@ app.get('/topics', async (req, res, next)=> {
     }
 })
 
+
+app.post('/activity', async (req, res, next)=> {
+    console.log('req.body:', req.body)
+    const topic = req.body.topic
+
+    const response = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: ACTIVITY_PROMPT + topic,
+        // temperature: 0,
+        max_tokens: 1000,   
+      });
+
+    const activity = response?.data?.choices[0].text
+    res.send({
+        activity,
+        videoId: 'D9OOXCu5XMg' // temp
+    })
+
+})
+
 app.get('/video', (req, res, next) => {
     console.log('req.query:', req.query)
     // const { text } = req.query
@@ -98,30 +118,30 @@ app.get('/video', (req, res, next) => {
 
 })
 
-app.post('/test', async (req, res, next)=> {
-    console.log('req.body:', req.body)
-    const { topic } = req.body
-    console.log('topic:', topic)
-    try {
+// app.post('/test', async (req, res, next)=> {
+//     console.log('req.body:', req.body)
+//     const { topic } = req.body
+//     console.log('topic:', topic)
+//     try {
  
 
 
 
 
-        const response = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt: ACTIVITY_PROMPT + topic,
-            // temperature: 0,
-            max_tokens: 1000,   
-          });
+//         const response = await openai.createCompletion({
+//             model: "text-davinci-003",
+//             prompt: ACTIVITY_PROMPT + topic,
+//             // temperature: 0,
+//             max_tokens: 1000,   
+//           });
 
-        const { text } = response?.data?.choices[0]
-        res.send(text)
-    } catch(err) {
-        res.send(err)
-    }
+//         const { text } = response?.data?.choices[0]
+//         res.send(text)
+//     } catch(err) {
+//         res.send(err)
+//     }
 
-})
+// })
 
 app.get('/', (req, res, next)=> {
     res.sendFile(path.join(__dirname, '..', 'build', 'index.html'))

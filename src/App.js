@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 
 function App() {
-  const [text, setText] = useState('')
+  const [activity, setActivity] = useState('')
   const [loading, setLoading] = useState(false)
   const [videoId, setVideoId] = useState(null)
   const [topics, setTopics] = useState([])
@@ -28,17 +28,26 @@ function App() {
       console.log('e.target:', e.target)
       // console.log('e.target.value:', e.target.value)
       // const { text } = e.target.value
-      const text = e.target.getAttribute("data-text");
+      const topic = e.target.getAttribute("data-text");
   
-      console.log('text:', text)
-      setChosenTopic(text)
+      setChosenTopic(topic)
 
-      axios.get(`/video?text=${encodeURIComponent(text)}}`)
+      axios.post(`/activity`, {
+        topic
+      })
       .then( res => {
         console.log('res.data:', res.data)
-        setVideoId(res.data)
+        const { activity, videoId } = res.data
+        setActivity(activity)
+        setVideoId(videoId)
       })
       .catch( err => console.log('err:', err))
+      // axios.get(`/video?text=${encodeURIComponent(text)}}`)
+      // .then( res => {
+      //   console.log('res.data:', res.data)
+      //   setVideoId(res.data)
+      // })
+      // .catch( err => console.log('err:', err))
 
     }
 
@@ -87,7 +96,7 @@ function App() {
         </p>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          {loading ? 'Loading...' : text}
+          {loading ? 'Loading...' : activity}
         </p>
         <a
           className="App-link"
