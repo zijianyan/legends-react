@@ -53,6 +53,7 @@ app.get('/topics', async (req, res, next)=> {
 app.post('/activity', async (req, res, next)=> {
     const topic = req.body.topic
     try {
+        // call openai for activity using topic
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: ACTIVITY_PROMPT + topic,
@@ -60,6 +61,7 @@ app.post('/activity', async (req, res, next)=> {
             max_tokens: 1000,   
           });
     
+        // search youtube for video using topic
         const youtube = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(req.body.topic)+'kids'}&key=${process.env.YOUTUBE_API_KEY}`)
 
         const videoId = youtube.data.items[0].id.videoId
