@@ -6,7 +6,13 @@ import React, { useEffect, useState } from 'react'
 
 
 function LoadingIndicator({ loading }) {
-  return loading ? <img src={logo} className="App-logo" alt="logo" /> : <></>
+  return loading
+          ? ( <div id="loading-indicator">
+                <img src={logo} className="App-logo" alt="logo" />
+                <p>Loading...</p>
+              </div>
+            )
+          : <></>
 }
 
 
@@ -28,8 +34,7 @@ function App() {
       })
       .catch((err)=> {
         console.log('err:', err)
-      })
-
+      }) 
   }, [])
 
   function handleClickTopic(e) {
@@ -84,7 +89,7 @@ function App() {
             : <></>
         }
         <p>
-          {loading ? 'Loading...' : activity}
+          {activity}
         </p>
       </header>
     </div>
