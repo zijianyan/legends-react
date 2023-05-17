@@ -4,6 +4,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 
+
+function LoadingIndicator({ loading }) {
+  return loading ? <img src={logo} className="App-logo" alt="logo" /> : <></>
+}
+
+
 function App() {
   const [activity, setActivity] = useState('')
   const [loading, setLoading] = useState(false)
@@ -12,10 +18,13 @@ function App() {
   const [chosenTopic, setChosenTopic] = useState(null)
 
   useEffect(()=> {
+    setLoading(true)
     axios.get('/topics')
       .then((res)=> {
-        console.log('res.data:', res.data)
         setTopics(res.data)
+      })
+      .then(()=> {
+        setLoading(false)
       })
       .catch((err)=> {
         console.log('err:', err)
@@ -25,9 +34,7 @@ function App() {
 
   function handleClickTopic(e) {
     if (!chosenTopic) {
-      console.log('e.target:', e.target)
-      // console.log('e.target.value:', e.target.value)
-      // const { text } = e.target.value
+      setLoading(true)
       const topic = e.target.getAttribute("data-text");
   
       setChosenTopic(topic)
@@ -36,84 +43,51 @@ function App() {
         topic
       })
       .then( res => {
-        console.log('res.data:', res.data)
         const { activity, videoId } = res.data
         setActivity(activity)
         setVideoId(videoId)
       })
+      .then(() => {
+        setLoading(false)
+      })
       .catch( err => console.log('err:', err))
-      // axios.get(`/video?text=${encodeURIComponent(text)}}`)
-      // .then( res => {
-      //   console.log('res.data:', res.data)
-      //   setVideoId(res.data)
-      // })
-      // .catch( err => console.log('err:', err))
 
     }
-
   }
-
-  // useEffect(()=> {
-  //   setLoading(true)
-  //   setVideoId('D9OOXCu5XMg') // temp
-
-
-
-
-
-  //   axios.post('/test', { topic })
-  //     .then((res)=> {
-  //       console.log('res.data:', res.data)
-  //       setText(res.data)
-  //     })
-  //     .then(()=> {
-  //       setLoading(false)
-  //     })
-  //     .catch((err)=> {
-  //       console.log('err:', err)
-  //     })
-  // }, [])
 
   return (
     <div className="App">
       <header className="App-header">
-
+        {
+          chosenTopic && !loading
+            ? <h1>  
+                Chosen topic: {chosenTopic}
+              </h1>
+            : <></>
+        }
+        <LoadingIndicator loading={loading}/>
+        <p>loading: {loading.toString()}</p>
         {
           videoId
             ? <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             : <></>
         }
-   
         {
-          chosenTopic
-            ? <></>
-            : <ul>
-                Topics:
+          topics.length && !loading && !chosenTopic
+            ? <h2>Topics:</h2>
+            : <></>
+        }
+        {
+          !chosenTopic && !loading
+            ? <ul>
                 {topics.map( topic => <li onClick={handleClickTopic} data-text={topic.text}>{topic.text}</li>)}
               </ul>
-             
-
+            : <></>
         }
-        
-        
-        
-        <p>
-          Chosen topic: {chosenTopic}
-        </p>
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           {loading ? 'Loading...' : activity}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
-       
     </div>
   );
 }
