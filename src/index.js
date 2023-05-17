@@ -4,6 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+import './fonts/Mensa Expanded W01 Bold.otf'
+import './fonts/Mensa Expanded W01 Medium.otf'
+import './fonts/Mensa Expanded W01 Regular.otf'
+import './fonts/Mensa W01 Bold.otf'
+import './fonts/Mensa W01 Medium.otf'
+import './fonts/Mensa W01 Regular.otf'
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
