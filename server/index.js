@@ -70,18 +70,44 @@ app.post('/activity', async (req, res, next)=> {
     console.log('req.body:', req.body)
     const topic = req.body.topic
 
-    const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: ACTIVITY_PROMPT + topic,
-        // temperature: 0,
-        max_tokens: 1000,   
-      });
+    try {
+        const response = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: ACTIVITY_PROMPT + topic,
+            // temperature: 0,
+            max_tokens: 1000,   
+          });
+    
+          
+    
+    
+        const youtube = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(req.body.topic)+'kids'}&key=${process.env.YOUTUBE_API_KEY}`, {
+            // headers: {
+            //     'Authorization': `Bearer ${process.env.YOUTUBE_API_KEY}` 
+            // }
+        })
+        console.log('youtube:', youtube)
 
-    const activity = response?.data?.choices[0].text
-    res.send({
-        activity,
-        videoId: 'D9OOXCu5XMg' // temp
-    })
+        // axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(req.body.topic)}&key=${process.env.YOUTUBE_API_KEY}`)
+        //   .then( res => {
+        //     console.log('youtube res:', res)
+        //   })
+        //   .catch(err => console.log('err:', err))
+
+        const videoId = youtube.data.items[0].id.videoId
+    
+        const activity = response?.data?.choices[0].text
+        res.send({
+            activity,
+            videoId
+            // videoId: 'D9OOXCu5XMg' // temp
+        })
+
+    } catch (err) {
+        console.log('err:', err)
+        res.send(err)
+    }
+
 
 })
 
