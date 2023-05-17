@@ -4,6 +4,36 @@
   font-weight: bold;
  }
 
+@font-face {
+  font-family: "MensaMedium";
+  src: url("./fonts/Mensa/Mensa-W01-Medium.otf") format("opentype");
+  font-weight: medium;
+ }
+
+@font-face {
+  font-family: "MensaRegular";
+  src: url("./fonts/Mensa/Mensa-W01-Regular.otf") format("opentype");
+  font-weight: normal;
+ }
+
+@font-face {
+  font-family: "MensaExpandedBold";
+  src: url("./fonts/MensaExpanded/Mensa-Expanded-W01-Bold.otf") format("opentype");
+  font-weight: bold;
+ }
+
+@font-face {
+  font-family: "MensaExpandedMedium";
+  src: url("./fonts/MensaExpanded/Mensa-Expanded-W01-Medium.otf") format("opentype");
+  font-weight: medium;
+ }
+
+@font-face {
+  font-family: "MensaExpandedRegular";
+  src: url("./fonts/MensaExpanded/Mensa-Expanded-W01-Regular.otf") format("opentype");
+  font-weight: normal;
+ }
+
 
 
 
