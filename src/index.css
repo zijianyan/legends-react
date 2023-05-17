@@ -1,5 +1,15 @@
+@font-face {
+  font-family: "MensaBold";
+  src: url("./fonts/Mensa/Mensa-W01-Bold.otf") format("opentype");
+  font-weight: bold;
+ }
+
+
+
+
 body {
   margin: 0;
+  font-family: 'MensaBold';
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
