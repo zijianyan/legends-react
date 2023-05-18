@@ -33,6 +33,7 @@ function App() {
   }, [])
 
   async function handleClickStartMood(e) {
+    console.log('e.target:', e.target)
     const mood = e.target.getAttribute("data-mood");
     await postMood(mood)
     setPhase(TOPIC_SELECTION)
