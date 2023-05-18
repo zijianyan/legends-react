@@ -36,18 +36,25 @@ function App() {
   const [phase, setPhase] = useState(START_MOOD)
 
   useEffect(()=> {
-    setLoading(true)
+    // setLoading(true)
     axios.get('/topics')
       .then((res)=> {
         setTopics(res.data)
       })
       .then(()=> {
-        setLoading(false)
+        // setLoading(false)
       })
       .catch((err)=> {
         console.log('err:', err)
       }) 
   }, [])
+
+  function handleClickStartMood(e) {
+    const mood = e.target.getAttribute("data-mood");
+    // post mood to some API
+    // set next phase
+    setPhase(TOPIC_SELECTION)
+  }
 
   function handleClickTopic(e) {
     if (!chosenTopic) {
@@ -66,17 +73,20 @@ function App() {
       })
       .then(() => {
         setLoading(false)
+        setPhase(ACTIVITY_INSTRUCTIONS)
       })
       .catch( err => console.log('err:', err))
-
     }
   }
 
-  function handleClickMood(e) {
-    const mood = e.target.getAttribute("data-mood");
-    // post mood to some API
-    // set next phase
-    setPhase(TOPIC_SELECTION)
+  function handleClickActivityFinish(e) {
+
+    setPhase(END_MOOD)
+
+  }
+
+  function handleClickEndMood(e) {
+
   }
 
   return (
@@ -86,12 +96,12 @@ function App() {
         <LoadingIndicator loading={loading}/>
         {
           phase === START_MOOD
-            ? <StartMood handleClickMood={handleClickTopic}/>
+            ? <StartMood handleClickStartMood={handleClickStartMood}/>
             : <></>
         }
      
         {
-          phase === TOPIC_SELECTION
+          (phase === TOPIC_SELECTION && topics.length)
             ? <TopicSelection topics={topics} handleClickTopic={handleClickTopic}/>
             : <></>
         }
@@ -107,12 +117,6 @@ function App() {
         {
           phase === ACTIVITY_INSTRUCTIONS
             ? <ActivityInstructions videoId={videoId} />
-            : <></>
-        }
-     
-        {
-          topics.length && !loading && !chosenTopic
-            ? <h2>Topics:</h2>
             : <></>
         }
         <p>

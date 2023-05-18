@@ -21,7 +21,7 @@ This activity should also be about `
 
 const TOPIC_PROMPT = `
 Give me a fun topic for kids;
-The topic should be very specific, but described in 4 words max;
+The topic should be very specific activity, but described in 5 words max;
 Make it a bit quirky;
 Max 1 topic;
 Remove any trailing quotation marks or punctuation;
@@ -39,7 +39,7 @@ app.get('/topics', async (req, res, next)=> {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: TOPIC_PROMPT,
-            // temperature: 0,
+            temperature: 1,
             max_tokens: 1000,
             n: 4
         })
