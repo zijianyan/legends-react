@@ -25,7 +25,7 @@ const PHASES = {
   END_MOOD: 'END_MOOD'
 }
 
-const { PRE_ACTIVITY, ACTIVITY, POST_ACTIVITY } = PHASES
+const { START_MOOD, TOPIC_SELECTION, ACTIVITY_INSTRUCTIONS, END_MOOD } = PHASES
 
 function App() {
   const [activity, setActivity] = useState('')
@@ -83,6 +83,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Phase: {phase}</h1>
+        <LoadingIndicator loading={loading}/>
         {
           phase === START_MOOD
             ? <StartMood handleClickMood={handleClickTopic}/>
@@ -91,7 +92,7 @@ function App() {
      
         {
           phase === TOPIC_SELECTION
-            ? <TOPIC_SELECTION />
+            ? <TopicSelection topics={topics} handleClickTopic={handleClickTopic}/>
             : <></>
         }
         {
@@ -101,22 +102,17 @@ function App() {
               </h1>
             : <></>
         }
-        <LoadingIndicator loading={loading}/>
+
+
         {
-          videoId
-            ? <iframe width="560" height="315" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          phase === ACTIVITY_INSTRUCTIONS
+            ? <ActivityInstructions videoId={videoId} />
             : <></>
         }
+     
         {
           topics.length && !loading && !chosenTopic
             ? <h2>Topics:</h2>
-            : <></>
-        }
-        {
-          !chosenTopic && !loading
-            ? <ul>
-                {topics.map( topic => <li onClick={handleClickTopic} data-text={topic.text}>{topic.text}</li>)}
-              </ul>
             : <></>
         }
         <p>
