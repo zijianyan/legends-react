@@ -3,9 +3,10 @@ import './App.css';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-import Activity from './components/Activity'
-import PostActivity from './components/PostActivity'
 import StartMood from './components/StartMood'
+import TopicSelection from './components/TopicSelection'
+import ActivityInstructions from './components/ActivityInstructions'
+import EndMood from './components/EndMood'
 
 function LoadingIndicator({ loading }) {
   return loading
