@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react'
+import { Route, Switch } from 'react-router-dom'
 
 import StartMood from './components/StartMood'
 import TopicSelection from './components/TopicSelection'
@@ -65,6 +66,20 @@ function App() {
     <div className="App">
       <header className="App-header">
         <LoadingIndicator loading={loading}/>
+        <Switch>
+          <Route path="/">
+            
+          </Route>
+          <Route path="/topic-selection">
+
+          </Route>
+          <Route path="/activity-instructions">
+
+          </Route>
+          <Route path="/end-mood">
+
+          </Route>
+        </Switch>
         {
           phase === START_MOOD
             ? <StartMood

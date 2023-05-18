@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { BrowserRouter as Router } from 'react-router-dom'
+
 import './fonts/MensaExpanded/Mensa-Expanded-W01-Medium.otf'
 import './fonts/MensaExpanded/Mensa-Expanded-W01-Regular.otf'
 import './fonts/MensaExpanded/Mensa-Expanded-W01-Bold.otf'
@@ -14,7 +16,9 @@ import './fonts/Mensa/Mensa-W01-Regular.otf'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>
 );
 
