@@ -54,7 +54,6 @@ function App() {
   function handleClickStartMood(e) {
     const mood = e.target.getAttribute("data-mood");
     // post mood to some API
-    // set next phase
     setPhase(TOPIC_SELECTION)
   }
 
@@ -84,6 +83,8 @@ function App() {
   }
 
   function handleClickEndMood(e) {
+    const mood = e.target.getAttribute("data-mood");
+    // post mood to some API
     setPhase(THANKS)
   }
 
