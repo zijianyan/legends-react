@@ -38,6 +38,8 @@
 
 
 body {
+  background: rgb(171,0,121);
+  background: linear-gradient(216deg, rgba(171,0,121,1) 0%, rgba(146,9,208,1) 35%, rgba(0,164,255,1) 100%);
   margin: 0;
   font-family: 'Poppins';
   -webkit-font-smoothing: antialiased;
