@@ -13,12 +13,13 @@ apiKey: process.env.OPENAI_API_KEY,
 const openai = new OpenAIApi(configuration);
 
 const ACTIVITY_PROMPT = `
-Describe to me an activity or mental exercise for a child that will boost their self-esteem;
+Describe to me an activity for a kid that will boost their self-esteem;
 Say it as if you were speaking to the child directly;
 Have a sense of humor;
-Make the activity something that requires the child's imagination;
-Start off this text by congratulating me about the good choice I made;
-This activity should also be about `
+Make the activity something that invites the child's to use their imagination or creativity;
+Start off this text with "Great choice!";
+Be optimistic and encouraging;
+This activity should be about `
 
 const TOPIC_PROMPT = `
 Give me a fun topic for kids;
@@ -61,7 +62,7 @@ app.post('/activity', async (req, res, next)=> {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: ACTIVITY_PROMPT + topic,
-            // temperature: 0,
+            temperature: 0.2,
             max_tokens: 1000,   
           });
     
