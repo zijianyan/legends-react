@@ -11,6 +11,8 @@ import './fonts/Mensa/Mensa-W01-Bold.otf'
 import './fonts/Mensa/Mensa-W01-Medium.otf'
 import './fonts/Mensa/Mensa-W01-Regular.otf'
 
+import 'animate.css'
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
