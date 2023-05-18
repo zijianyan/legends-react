@@ -57,12 +57,11 @@ function App() {
   }
 
   function handleClickTopic(e) {
-    if (!chosenTopic) {
+    // if (!chosenTopic) {
+      setPhase(ACTIVITY_INSTRUCTIONS)
       setLoading(true)
       const topic = e.target.getAttribute("data-text");
-  
       setChosenTopic(topic)
-
       axios.post(`/activity`, {
         topic
       })
@@ -73,10 +72,9 @@ function App() {
       })
       .then(() => {
         setLoading(false)
-        setPhase(ACTIVITY_INSTRUCTIONS)
       })
       .catch( err => console.log('err:', err))
-    }
+    // }
   }
 
   function handleClickActivityFinish(e) {

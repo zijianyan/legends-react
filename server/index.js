@@ -24,6 +24,7 @@ Give me a fun topic for kids;
 The topic should be very specific activity, but described in 5 words max;
 Make it a bit quirky;
 Max 1 topic;
+The should not be a topic that has been provided in the past 10 requests;
 Remove any trailing quotation marks or punctuation;
 `
 
