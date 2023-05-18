@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 
 app.get('/topics', async (req, res, next)=> {
     try {
-        // call open ai for topics
+        // query openai for topics
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: TOPIC_PROMPT,
@@ -54,33 +54,35 @@ app.get('/topics', async (req, res, next)=> {
     }
 })
 
-
 app.get('/activity', async (req, res, next)=> {
     const { topic } = req.query
     try {
-        // call openai for activity using topic
+        // query openai for activity using topic
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: ACTIVITY_PROMPT + topic,
             temperature: 0.2,
             max_tokens: 1000,   
           });
-    
         // search youtube for video using topic
         const youtube = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(topic)+'kids'}&key=${process.env.YOUTUBE_API_KEY}`)
-
         const videoId = youtube.data.items[0].id.videoId
-    
         const activityText = response?.data?.choices[0].text
         res.send({
             activityText,
             videoId
         })
-
     } catch (err) {
         console.log('err:', err)
         res.send(err)
     }
+})
+
+app.post('/mood', (req, res, next)=> {
+    const mood = req.body
+    console.log('mood:', mood)
+    // save mood to database here with userId, chosenTopic, activityText, and phase: start | end
+    res.sendStatus(201)
 })
 
 app.get('/', (req, res, next)=> {
