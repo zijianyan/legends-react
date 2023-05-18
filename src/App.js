@@ -7,6 +7,7 @@ import StartMood from './components/StartMood'
 import TopicSelection from './components/TopicSelection'
 import ActivityInstructions from './components/ActivityInstructions'
 import EndMood from './components/EndMood'
+import Thanks from './components/Thanks'
 
 function LoadingIndicator({ loading }) {
   return loading
@@ -22,10 +23,11 @@ const PHASES = {
   START_MOOD: 'START_MOOD',
   TOPIC_SELECTION: 'TOPIC_SELECTION',
   ACTIVITY_INSTRUCTIONS: 'ACTIVITY_INSTRUCTIONS',
-  END_MOOD: 'END_MOOD'
+  END_MOOD: 'END_MOOD',
+  THANKS: 'THANKS'
 }
 
-const { START_MOOD, TOPIC_SELECTION, ACTIVITY_INSTRUCTIONS, END_MOOD } = PHASES
+const { START_MOOD, TOPIC_SELECTION, ACTIVITY_INSTRUCTIONS, END_MOOD, THANKS } = PHASES
 
 function App() {
   const [activity, setActivity] = useState('')
@@ -82,7 +84,7 @@ function App() {
   }
 
   function handleClickEndMood(e) {
-
+    setPhase(THANKS)
   }
 
   return (
@@ -119,7 +121,13 @@ function App() {
 
         {
           phase === END_MOOD
-            ? <EndMood />
+            ? <EndMood handleClickEndMood={handleClickEndMood}/>
+            : <></>
+        }
+
+        {
+          phase === Thanks
+            ? <Thanks />
             : <></>
         }
 
