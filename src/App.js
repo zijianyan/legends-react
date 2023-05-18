@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import './App.css';
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 import StartMood from './components/StartMood'
@@ -8,18 +6,11 @@ import TopicSelection from './components/TopicSelection'
 import ActivityInstructions from './components/ActivityInstructions'
 import EndMood from './components/EndMood'
 import Thanks from './components/Thanks'
+import LoadingIndicator from './components/LoadingIndicator';
 
 import { getTopics, getActivity } from './services'
 
-function LoadingIndicator({ loading }) {
-  return loading
-          ? ( <div id="loading-indicator">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>Loading...</p>
-              </div>
-            )
-          : <></>
-}
+
 
 const PHASES = {
   START_MOOD: 'START_MOOD',
