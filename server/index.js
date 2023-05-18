@@ -8,12 +8,7 @@ const axios = require('axios')
 
 const { TOPIC_PROMPT, ACTIVITY_PROMPT } = require('./constants/prompts')
 const { YOUTUBE_API_BASE_URL } = require('./api/youtube')
-
-const { Configuration, OpenAIApi } = require("openai");
-const configuration = new Configuration({
-apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+const openai = require('./api/openai')
 
 const port = process.env.PORT || 3000
 app.listen(port, ()=> console.log(`listening on port ${port}`))
