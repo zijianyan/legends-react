@@ -16,16 +16,28 @@ app.listen(port, ()=> console.log(`listening on port ${port}`))
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
+
+const GET_TOPICS_CONFIG = { 
+    model: MODEL,
+    prompt: TOPIC_PROMPT,
+    temperature: 1,
+    max_tokens: 1000,
+    n: 5
+}
+
+const GET_ACTIVITY_CONFIG = (topic) => { 
+
+    return {
+        model: MODEL,
+        prompt: ACTIVITY_PROMPT + topic,
+        temperature: 0.5,
+        max_tokens: 1000,   
+    }
+  }
+
 app.get('/topics', async (req, res, next)=> {
     try {
-        const response = await openai.createCompletion({ // query openai for topics
-
-            model: MODEL,
-            prompt: TOPIC_PROMPT,
-            temperature: 1,
-            max_tokens: 1000,
-            n: 5
-        })
+        const response = await openai.createCompletion(GET_TOPICS_CONFIG) // query openai for topics
         const { choices } = response?.data
         res.send(choices)
     } catch (err) {
@@ -33,16 +45,10 @@ app.get('/topics', async (req, res, next)=> {
     }
 })
 
-app.get('/activity', async (req, res, next)=> {
+app.get('/activity', async (req, res, next)=> { 
     const { topic } = req.query
     try {
-        const response = await openai.createCompletion({ // query openai for activity using topic
-            model: MODEL,
-            prompt: ACTIVITY_PROMPT + topic,
-            temperature: 0.5,
-            max_tokens: 1000,   
-          });
-        
+        const response = await openai.createCompletion(GET_ACTIVITY_CONFIG(topic)) // query openai for activity using topic
         const youtube = await axios.get(`${YOUTUBE_API_BASE_URL}?part=snippet&q=${encodeURIComponent(topic)+'kids'}&key=${process.env.YOUTUBE_API_KEY}`) // search youtube for video using topic
         const videoId = youtube.data.items[0].id.videoId
         const activityText = response?.data?.choices[0].text
