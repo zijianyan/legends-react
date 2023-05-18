@@ -45,7 +45,7 @@ app.get('/topics', async (req, res, next)=> {
             prompt: TOPIC_PROMPT,
             temperature: 1,
             max_tokens: 1000,
-            n: 4
+            n: 5
         })
         const { choices } = response?.data
         res.send(choices)

@@ -127,7 +127,7 @@ function App() {
         }
 
         {
-          phase === Thanks
+          phase === THANKS
             ? <Thanks />
             : <></>
         }
