@@ -8,7 +8,7 @@ import EndMood from './components/EndMood'
 import Thanks from './components/Thanks'
 import LoadingIndicator from './components/LoadingIndicator';
 
-import { getTopics, getActivity } from './services'
+import { getTopics, getActivity, postMood } from './services'
 import { PHASES } from './constants'
 
 const {
@@ -32,9 +32,9 @@ function App() {
    setTopics(topics)
   }, [])
 
-  function handleClickStartMood(e) {
+  async function handleClickStartMood(e) {
     const mood = e.target.getAttribute("data-mood");
-    // post mood to some API
+    await postMood(mood)
     setPhase(TOPIC_SELECTION)
   }
 
@@ -54,9 +54,9 @@ function App() {
     setPhase(END_MOOD)
   }
 
-  function handleClickEndMood(e) {
+  async function handleClickEndMood(e) {
     const mood = e.target.getAttribute("data-mood");
-    // post mood to some API
+    await postMood(mood)
     setPhase(THANKS)
   }
 
