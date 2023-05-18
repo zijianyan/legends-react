@@ -17,6 +17,7 @@ Describe to me an activity or mental exercise for a child that will boost their 
 Say it as if you were speaking to the child directly;
 Have a sense of humor;
 Make the activity something that requires the child's imagination;
+Start off this text by congratulating me about the good choice I made;
 This activity should also be about `
 
 const TOPIC_PROMPT = `
@@ -27,7 +28,6 @@ Max 1 topic;
 The should not be a topic that has been provided in the past 10 requests;
 Remove all quotation marks or punctuation;
 Remove all periods or "." from the text;
-
 `
 
 const port = process.env.PORT || 3000
