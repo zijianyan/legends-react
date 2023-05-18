@@ -42,3 +42,14 @@ export const LOADING_MESSAGES = [
   "chasing some rainbows",
   "feeding the dragons"
 ]
+
+export const slideInInitial = { opacity: 0, x: 500 }
+export const slideInAnimate = { opacity: 1, x: 0 }
+export const slideInTransition = { duration: 0.5 }
+export const whileHover = {
+  scale: 1.5,
+  transition: { duration: 0.2 },
+}
+
+
+
