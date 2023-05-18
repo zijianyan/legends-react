@@ -37,18 +37,32 @@ function App() {
   const [chosenTopic, setChosenTopic] = useState(null)
   const [phase, setPhase] = useState(START_MOOD)
 
-  useEffect(()=> {
-    // setLoading(true)
-    axios.get('/topics')
+
+  function getTopics() {
+    return axios.get('/topics')
       .then((res)=> {
         setTopics(res.data)
-      })
-      .then(()=> {
-        // setLoading(false)
       })
       .catch((err)=> {
         console.log('err:', err)
       }) 
+  }
+
+  function getActivity(topic) {
+    return axios.get(`/activity?topic=${topic}`)
+      .then( res => {
+        const { activity, videoId } = res.data
+        setActivity(activity)
+        setVideoId(videoId)
+      })
+      .then(() => {
+        setLoading(false)
+      })
+      .catch( err => console.log('err:', err))
+  }
+
+  useEffect(()=> {
+   getTopics()
   }, [])
 
   function handleClickStartMood(e) {
@@ -63,16 +77,7 @@ function App() {
       setLoading(true)
       const topic = e.target.getAttribute("data-text");
       setChosenTopic(topic)
-      axios.get(`/activity?topic=${topic}`)
-      .then( res => {
-        const { activity, videoId } = res.data
-        setActivity(activity)
-        setVideoId(videoId)
-      })
-      .then(() => {
-        setLoading(false)
-      })
-      .catch( err => console.log('err:', err))
+      getActivity(topic)
     // }
   }
 
