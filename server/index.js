@@ -71,9 +71,9 @@ app.get('/activity', async (req, res, next)=> {
 
         const videoId = youtube.data.items[0].id.videoId
     
-        const activity = response?.data?.choices[0].text
+        const activityText = response?.data?.choices[0].text
         res.send({
-            activity,
+            activityText,
             videoId
         })
 

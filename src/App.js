@@ -9,6 +9,8 @@ import ActivityInstructions from './components/ActivityInstructions'
 import EndMood from './components/EndMood'
 import Thanks from './components/Thanks'
 
+import { getTopics, getActivity } from './services'
+
 function LoadingIndicator({ loading }) {
   return loading
           ? ( <div id="loading-indicator">
@@ -30,7 +32,7 @@ const PHASES = {
 const { START_MOOD, TOPIC_SELECTION, ACTIVITY_INSTRUCTIONS, END_MOOD, THANKS } = PHASES
 
 function App() {
-  const [activity, setActivity] = useState('')
+  const [activityText, setActivityText] = useState('')
   const [loading, setLoading] = useState(false)
   const [videoId, setVideoId] = useState(null)
   const [topics, setTopics] = useState([])
@@ -38,31 +40,12 @@ function App() {
   const [phase, setPhase] = useState(START_MOOD)
 
 
-  function getTopics() {
-    return axios.get('/topics')
-      .then((res)=> {
-        setTopics(res.data)
-      })
-      .catch((err)=> {
-        console.log('err:', err)
-      }) 
-  }
 
-  function getActivity(topic) {
-    return axios.get(`/activity?topic=${topic}`)
-      .then( res => {
-        const { activity, videoId } = res.data
-        setActivity(activity)
-        setVideoId(videoId)
-      })
-      .then(() => {
-        setLoading(false)
-      })
-      .catch( err => console.log('err:', err))
-  }
 
-  useEffect(()=> {
-   getTopics()
+
+  useEffect( async ()=> {
+   const topics = await getTopics()
+   setTopics(topics)
   }, [])
 
   function handleClickStartMood(e) {
@@ -71,14 +54,17 @@ function App() {
     setPhase(TOPIC_SELECTION)
   }
 
-  function handleClickTopic(e) {
-    // if (!chosenTopic) {
+  async function handleClickTopic(e) {
       setPhase(ACTIVITY_INSTRUCTIONS)
       setLoading(true)
       const topic = e.target.getAttribute("data-text");
       setChosenTopic(topic)
-      getActivity(topic)
-    // }
+      const activity = await getActivity(topic)
+      console.log('handleClickTopic, activity:', activity)
+      const { videoId, activityText } = activity
+      setActivityText(activityText)
+      setVideoId(videoId)
+      setLoading(false)
   }
 
   function handleClickActivityFinish(e) {
@@ -117,7 +103,7 @@ function App() {
             ? <ActivityInstructions
                 chosenTopic={chosenTopic}
                 videoId={videoId}
-                activity={activity}
+                activityText={activityText}
                 handleClickActivityFinish={handleClickActivityFinish}
               />
             : <></>

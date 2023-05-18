@@ -1,15 +1,15 @@
 import React from 'react'
 
-export default function ActivityInstructions ({ chosenTopic, videoId, activity, handleClickActivityFinish }) {
+export default function ActivityInstructions ({ chosenTopic, videoId, activityText, handleClickActivityFinish }) {
     return (
         <>
             {
-                activity && videoId
+                activityText && videoId
                     ?   <>
                             <div id="activity">
                                 <h1>{chosenTopic}</h1>
                                 <p>
-                                    {activity}
+                                    {activityText}
                                 </p>                         
                             </div>
                             <div id="video">
