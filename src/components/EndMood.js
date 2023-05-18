@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export default function EndMood ({ handleClickEndMood }) {
+export default function EndMood ({ handleClickEndMood, moods }) {
     return (
         <>
             <h1>Congratulations!</h1>

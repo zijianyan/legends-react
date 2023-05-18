@@ -9,7 +9,7 @@ import Thanks from './components/Thanks'
 import LoadingIndicator from './components/LoadingIndicator';
 
 import { getTopics, getActivity, postMood } from './services'
-import { PHASES } from './constants'
+import { PHASES, MOODS } from './constants'
 
 const {
   START_MOOD,
@@ -68,6 +68,7 @@ function App() {
           phase === START_MOOD
             ? <StartMood
                 handleClickStartMood={handleClickStartMood}
+                moods={MOODS}
               />
             : <></>
         }
@@ -94,7 +95,10 @@ function App() {
 
         {
           phase === END_MOOD
-            ? <EndMood handleClickEndMood={handleClickEndMood}/>
+            ? <EndMood
+                handleClickEndMood={handleClickEndMood}
+                moods={MOODS}
+              />
             : <></>
         }
 
