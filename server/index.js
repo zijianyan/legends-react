@@ -24,6 +24,7 @@ Give me a fun topic for kids;
 The topic should be very specific, but described in 4 words max;
 Make it a bit quirky;
 Max 1 topic;
+Remove any trailing quotation marks or punctuation;
 `
 
 const port = process.env.PORT || 3000

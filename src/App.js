@@ -15,6 +15,13 @@ function LoadingIndicator({ loading }) {
           : <></>
 }
 
+const PHASES = {
+  PRE_ACTIVITY: 'PRE_ACTIVITY',
+  ACTIVITY: 'ACTIVITY',
+  POST_ACTIVITY: 'POST_ACTIVITY'
+}
+
+const { PRE_ACTIVITY, ACTIVITY, POST_ACTIVITY } = PHASES
 
 function App() {
   const [activity, setActivity] = useState('')
@@ -22,6 +29,7 @@ function App() {
   const [videoId, setVideoId] = useState(null)
   const [topics, setTopics] = useState([])
   const [chosenTopic, setChosenTopic] = useState(null)
+  const [phase, setPhase] = useState(PRE_ACTIVITY)
 
   useEffect(()=> {
     setLoading(true)
@@ -60,9 +68,29 @@ function App() {
     }
   }
 
+  function handleClickPreActivity(e) {
+    const mood = e.target.getAttribute("data-mood");
+    // post mood to some API
+    // set next phase
+    setPhase(ACTIVITY)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
+        {
+          phase === PRE_ACTIVITY
+            ? (
+                <div id="pre-activity">
+                  <h2>Hey, how's it going today?</h2>
+                  <ul>
+                    <li data-mood="good" onClick={handleClickPreActivity}>good</li>
+                    <li data-mood="bad" onClick={handleClickPreActivity}>bad</li>
+                  </ul>
+                </div>
+              )
+            : <></>
+            }
         {
           chosenTopic && !loading
             ? <h1>  
