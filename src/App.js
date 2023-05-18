@@ -3,7 +3,9 @@ import './App.css';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-
+import Activity from './components/Activity'
+import PostActivity from './components/PostActivity'
+import StartMood from './components/StartMood'
 
 function LoadingIndicator({ loading }) {
   return loading
@@ -16,9 +18,10 @@ function LoadingIndicator({ loading }) {
 }
 
 const PHASES = {
-  PRE_ACTIVITY: 'PRE_ACTIVITY',
-  ACTIVITY: 'ACTIVITY',
-  POST_ACTIVITY: 'POST_ACTIVITY'
+  START_MOOD: 'START_MOOD',
+  TOPIC_SELECTION: 'TOPIC_SELECTION',
+  ACTIVITY_INSTRUCTIONS: 'ACTIVITY_INSTRUCTIONS',
+  END_MOOD: 'END_MOOD'
 }
 
 const { PRE_ACTIVITY, ACTIVITY, POST_ACTIVITY } = PHASES
@@ -29,7 +32,7 @@ function App() {
   const [videoId, setVideoId] = useState(null)
   const [topics, setTopics] = useState([])
   const [chosenTopic, setChosenTopic] = useState(null)
-  const [phase, setPhase] = useState(PRE_ACTIVITY)
+  const [phase, setPhase] = useState(START_MOOD)
 
   useEffect(()=> {
     setLoading(true)
@@ -68,11 +71,11 @@ function App() {
     }
   }
 
-  function handleClickPreActivity(e) {
+  function handleClickMood(e) {
     const mood = e.target.getAttribute("data-mood");
     // post mood to some API
     // set next phase
-    setPhase(ACTIVITY)
+    setPhase(TOPIC_SELECTION)
   }
 
   return (
@@ -80,18 +83,16 @@ function App() {
       <header className="App-header">
         <h1>Phase: {phase}</h1>
         {
-          phase === PRE_ACTIVITY
-            ? (
-                <div id="pre-activity">
-                  <h2>Hey, how's it going today?</h2>
-                  <ul>
-                    <li data-mood="good" onClick={handleClickPreActivity}>good</li>
-                    <li data-mood="bad" onClick={handleClickPreActivity}>bad</li>
-                  </ul>
-                </div>
-              )
+          phase === START_MOOD
+            ? <StartMood handleClickMood={handleClickTopic}/>
             : <></>
-            }
+        }
+     
+        {
+          phase === TOPIC_SELECTION
+            ? <TOPIC_SELECTION />
+            : <></>
+        }
         {
           chosenTopic && !loading
             ? <h1>  
