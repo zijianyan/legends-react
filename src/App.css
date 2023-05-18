@@ -15,7 +15,7 @@
 
 .App-header {
   padding: 0 20%;
-   min-height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,6 +30,17 @@ ul {
 
 li {
   list-style: none;
+}
+
+.moods {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.icon {
+  height: 100px;
 }
 
 .App-link {
