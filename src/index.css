@@ -47,6 +47,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+  font-family: 'MensaExpandedBold'
+}
+
+h2 {
+  font-family: 'MensaExpandedMedium'
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

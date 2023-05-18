@@ -78,6 +78,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Phase: {phase}</h1>
         {
           phase === PRE_ACTIVITY
             ? (
