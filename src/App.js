@@ -63,9 +63,7 @@ function App() {
       setLoading(true)
       const topic = e.target.getAttribute("data-text");
       setChosenTopic(topic)
-      axios.post(`/activity`, {
-        topic
-      })
+      axios.get(`/activity?topic=${topic}`)
       .then( res => {
         const { activity, videoId } = res.data
         setActivity(activity)
