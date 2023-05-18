@@ -6,8 +6,11 @@ export default function StartMood({ handleClickStartMood, moods }) {
             <h1>Hey, how's it going today?</h1>
             <ul>
                 {
-                    moods.map(({ score, imgUrl}) => {
-                        return <li data-mood={score} onClick={handleClickStartMood}>{score}</li>
+                    moods.map(({ score, src }) => {
+                        return  <li data-mood={score} onClick={handleClickStartMood}>
+                                    <img src={src} height="100px"/>
+                                    <p>{score}</p>
+                                </li>
                     })
                 }
                 <li data-mood="good" onClick={handleClickStartMood}>good</li>

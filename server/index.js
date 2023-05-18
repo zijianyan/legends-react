@@ -15,6 +15,7 @@ app.listen(port, ()=> console.log(`listening on port ${port}`))
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'build')))
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 app.get('/topics', async (req, res, next)=> {
     try {
