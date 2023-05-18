@@ -78,9 +78,7 @@ function App() {
   }
 
   function handleClickActivityFinish(e) {
-
     setPhase(END_MOOD)
-
   }
 
   function handleClickEndMood(e) {
@@ -90,36 +88,41 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Phase: {phase}</h1>
         <LoadingIndicator loading={loading}/>
         {
           phase === START_MOOD
-            ? <StartMood handleClickStartMood={handleClickStartMood}/>
+            ? <StartMood
+                handleClickStartMood={handleClickStartMood}
+              />
             : <></>
         }
      
         {
           (phase === TOPIC_SELECTION && topics.length)
-            ? <TopicSelection topics={topics} handleClickTopic={handleClickTopic}/>
+            ? <TopicSelection
+                topics={topics}
+                handleClickTopic={handleClickTopic}
+              />
             : <></>
         }
-        {
-          chosenTopic && !loading
-            ? <h1>  
-                Chosen topic: {chosenTopic}
-              </h1>
-            : <></>
-        }
-
 
         {
           phase === ACTIVITY_INSTRUCTIONS
-            ? <ActivityInstructions videoId={videoId} />
+            ? <ActivityInstructions
+                chosenTopic={chosenTopic}
+                videoId={videoId}
+                activity={activity}
+                handleClickActivityFinish={handleClickActivityFinish}
+              />
             : <></>
         }
-        <p>
-          {activity}
-        </p>
+
+        {
+          phase === END_MOOD
+            ? <EndMood />
+            : <></>
+        }
+
       </header>
     </div>
   );
