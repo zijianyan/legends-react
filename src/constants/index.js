@@ -35,3 +35,10 @@ export const PHASES = {
   END_MOOD: 'END_MOOD',
   THANKS: 'THANKS'
 }
+
+export const LOADING_MESSAGES = [
+  "summoning the unicorns",
+  "planting the flowers",
+  "chasing some rainbows",
+  "feeding the dragons"
+]
