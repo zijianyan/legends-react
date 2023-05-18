@@ -6,9 +6,9 @@ const app = express()
 const path = require('path')
 const axios = require('axios')
 
-const { TOPIC_PROMPT, ACTIVITY_PROMPT } = require('./constants/prompts')
+const { GET_TOPICS_CONFIG, GET_ACTIVITY_CONFIG } = require('./api/openai/config')
 const { YOUTUBE_API_BASE_URL } = require('./api/youtube')
-const { openai, MODEL } = require('./api/openai')
+const openai = require('./api/openai')
 
 const port = process.env.PORT || 3000
 app.listen(port, ()=> console.log(`listening on port ${port}`))
@@ -16,28 +16,9 @@ app.listen(port, ()=> console.log(`listening on port ${port}`))
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
-
-const GET_TOPICS_CONFIG = { 
-    model: MODEL,
-    prompt: TOPIC_PROMPT,
-    temperature: 1,
-    max_tokens: 1000,
-    n: 5
-}
-
-const GET_ACTIVITY_CONFIG = (topic) => { 
-
-    return {
-        model: MODEL,
-        prompt: ACTIVITY_PROMPT + topic,
-        temperature: 0.5,
-        max_tokens: 1000,   
-    }
-  }
-
 app.get('/topics', async (req, res, next)=> {
     try {
-        const response = await openai.createCompletion(GET_TOPICS_CONFIG) // query openai for topics
+        const response = await openai.createCompletion(GET_TOPICS_CONFIG()) // query openai for topics
         const { choices } = response?.data
         res.send(choices)
     } catch (err) {
