@@ -8,7 +8,7 @@ const axios = require('axios')
 
 const { TOPIC_PROMPT, ACTIVITY_PROMPT } = require('./constants/prompts')
 const { YOUTUBE_API_BASE_URL } = require('./api/youtube')
-const openai = require('./api/openai')
+const { openai, MODEL } = require('./api/openai')
 
 const port = process.env.PORT || 3000
 app.listen(port, ()=> console.log(`listening on port ${port}`))
@@ -20,7 +20,7 @@ app.get('/topics', async (req, res, next)=> {
     try {
         const response = await openai.createCompletion({ // query openai for topics
 
-            model: "text-davinci-003",
+            model: MODEL,
             prompt: TOPIC_PROMPT,
             temperature: 1,
             max_tokens: 1000,
@@ -33,12 +33,11 @@ app.get('/topics', async (req, res, next)=> {
     }
 })
 
-
 app.get('/activity', async (req, res, next)=> {
     const { topic } = req.query
     try {
         const response = await openai.createCompletion({ // query openai for activity using topic
-            model: "text-davinci-003",
+            model: MODEL,
             prompt: ACTIVITY_PROMPT + topic,
             temperature: 0.5,
             max_tokens: 1000,   
