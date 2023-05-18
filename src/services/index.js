@@ -18,7 +18,7 @@ export function getActivity(topic) {
   }
 
 export function postMood(mood) {
-    return axios.post(`/mood`)
+    return axios.post(`/mood`, { mood })
         .then( res => {
             console.log('res:', res)
         })  

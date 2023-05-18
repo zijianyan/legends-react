@@ -61,7 +61,7 @@ app.get('/activity', async (req, res, next)=> {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: ACTIVITY_PROMPT + topic,
-            temperature: 0.2,
+            temperature: 0.5,
             max_tokens: 1000,   
           });
         // search youtube for video using topic
@@ -82,7 +82,7 @@ app.post('/mood', (req, res, next)=> {
     const mood = req.body
     console.log('mood:', mood)
     // save mood to database here with userId, chosenTopic, activityText, and phase: start | end
-    res.sendStatus(201)
+    res.status(201).send(mood)
 })
 
 app.get('/', (req, res, next)=> {
