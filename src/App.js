@@ -9,18 +9,15 @@ import Thanks from './components/Thanks'
 import LoadingIndicator from './components/LoadingIndicator';
 
 import { getTopics, getActivity } from './services'
+import { PHASES } from './constants'
 
-
-
-const PHASES = {
-  START_MOOD: 'START_MOOD',
-  TOPIC_SELECTION: 'TOPIC_SELECTION',
-  ACTIVITY_INSTRUCTIONS: 'ACTIVITY_INSTRUCTIONS',
-  END_MOOD: 'END_MOOD',
-  THANKS: 'THANKS'
-}
-
-const { START_MOOD, TOPIC_SELECTION, ACTIVITY_INSTRUCTIONS, END_MOOD, THANKS } = PHASES
+const {
+  START_MOOD,
+  TOPIC_SELECTION,
+  ACTIVITY_INSTRUCTIONS,
+  END_MOOD,
+  THANKS
+} = PHASES
 
 function App() {
   const [activityText, setActivityText] = useState('')
@@ -30,11 +27,7 @@ function App() {
   const [chosenTopic, setChosenTopic] = useState(null)
   const [phase, setPhase] = useState(START_MOOD)
 
-
-
-
-
-  useEffect( async ()=> {
+  useEffect( async ()=> { // init
    const topics = await getTopics()
    setTopics(topics)
   }, [])
@@ -51,7 +44,6 @@ function App() {
       const topic = e.target.getAttribute("data-text");
       setChosenTopic(topic)
       const activity = await getActivity(topic)
-      console.log('handleClickTopic, activity:', activity)
       const { videoId, activityText } = activity
       setActivityText(activityText)
       setVideoId(videoId)
