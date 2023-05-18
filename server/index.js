@@ -7,6 +7,7 @@ const path = require('path')
 const axios = require('axios')
 
 const { TOPIC_PROMPT, ACTIVITY_PROMPT } = require('./constants/prompts')
+const { YOUTUBE_API_BASE_URL } = require('./api/youtube')
 
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
@@ -17,13 +18,13 @@ const openai = new OpenAIApi(configuration);
 const port = process.env.PORT || 3000
 app.listen(port, ()=> console.log(`listening on port ${port}`))
 
-app.use(express.json()); //Used to parse JSON bodies
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
 app.get('/topics', async (req, res, next)=> {
     try {
-        // query openai for topics
-        const response = await openai.createCompletion({
+        const response = await openai.createCompletion({ // query openai for topics
+
             model: "text-davinci-003",
             prompt: TOPIC_PROMPT,
             temperature: 1,
@@ -37,18 +38,18 @@ app.get('/topics', async (req, res, next)=> {
     }
 })
 
+
 app.get('/activity', async (req, res, next)=> {
     const { topic } = req.query
     try {
-        // query openai for activity using topic
-        const response = await openai.createCompletion({
+        const response = await openai.createCompletion({ // query openai for activity using topic
             model: "text-davinci-003",
             prompt: ACTIVITY_PROMPT + topic,
             temperature: 0.5,
             max_tokens: 1000,   
           });
-        // search youtube for video using topic
-        const youtube = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(topic)+'kids'}&key=${process.env.YOUTUBE_API_KEY}`)
+        
+        const youtube = await axios.get(`${YOUTUBE_API_BASE_URL}?part=snippet&q=${encodeURIComponent(topic)+'kids'}&key=${process.env.YOUTUBE_API_KEY}`) // search youtube for video using topic
         const videoId = youtube.data.items[0].id.videoId
         const activityText = response?.data?.choices[0].text
         res.send({
