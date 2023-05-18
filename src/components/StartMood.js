@@ -1,21 +1,16 @@
 import React from 'react'
 
-
-
 const listStyle = {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around'
-}
+    justifyContent: 'space-around',
+    width: '80vh'
 
-// const listItemStyle = {
-//     height: '100px'
-// }
+}
 
 const iconStyle = {
     height: '100px'
 }
-
 
 export default function StartMood({ handleClickStartMood, moods }) {
     return (
