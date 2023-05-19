@@ -13,7 +13,7 @@ export default function ActivityInstructions ({ chosenTopic, videoId, activityTe
                             animate={slideInAnimate}
                             initial={slideInInitial}
                             transition={slideInTransition}
-                            style={{ maxWidth: '80vw'}}
+                            style={{ maxWidth: '560px'}}
                         >
                             <div id="activity">
                                 <h1>{chosenTopic}</h1>

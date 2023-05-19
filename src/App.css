@@ -42,6 +42,7 @@ li {
 
 .icon {
   width: 10vw;
+  max-width: 100px;
 }
 
 .App-link {
