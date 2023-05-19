@@ -30,9 +30,14 @@ app.get('/topics', async (req, res, next)=> {
 app.get('/activity', async (req, res, next)=> { 
     const { topic } = req.query
     try {
+        let videoId;
+        try { // temp workaround in case youtube daily limit of 100 api search calls is exceeded
+            const video = await axios.get(generateYouTubeUrl(topic)) // query youtube for relevant video
+            videoId = video.data.items[0].id.videoId
+        } catch (err) {
+            videoId = 'QH2-TGUlwu4'
+        }
         const response = await openai.createCompletion(GET_ACTIVITY_CONFIG(topic)) // query openai for activity based on topic
-        const video = await axios.get(generateYouTubeUrl(topic)) // query youtube for relevant video
-        const videoId = video.data.items[0].id.videoId
         const activityText = response?.data?.choices[0].text
         res.send({
             activityText,

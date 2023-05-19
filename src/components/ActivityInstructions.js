@@ -1,4 +1,8 @@
 import React from 'react'
+import { buttonStyle } from '../constants'
+import { motion, AnimatePresence } from 'framer-motion'
+import { slideInInitial, slideInAnimate, slideInTransition, whileHover } from '../constants'
+
 
 export default function ActivityInstructions ({ chosenTopic, videoId, activityText, handleClickActivityFinish }) {
     return (
@@ -8,7 +12,7 @@ export default function ActivityInstructions ({ chosenTopic, videoId, activityTe
                     ?   <>
                             <div id="activity">
                                 <h1>{chosenTopic}</h1>
-                                <p>
+                                <p style={{ textAlign: 'left' }}>
                                     {activityText}
                                 </p>                         
                             </div>
@@ -26,7 +30,7 @@ export default function ActivityInstructions ({ chosenTopic, videoId, activityTe
                             </div>
                             <div id="finish-activity">
                                 <h3>When you're finished, click below!</h3>
-                                <button onClick={handleClickActivityFinish}>Next</button>
+                                <motion.button whileHover={whileHover} style={{...buttonStyle, marginBottom: '100px'}} onClick={handleClickActivityFinish}>Next</motion.button>
                             </div>
                         </>
                     :   <></>

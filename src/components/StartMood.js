@@ -12,11 +12,14 @@ export default function StartMood({ handleClickStartMood, moods }) {
                 initial={slideInInitial}
                 animate={slideInAnimate}
                 transition={slideInTransition}
+                exit={{
+                    opacity: 0, 
+                    transform: 'scale(0.5)', 
+                    transition: { ease: 'easeIn', duration: 10 } 
+                  }}
                 id="start-mood"
             >
-                <motion.h1  initial={{ opacity: 0, x: 500 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}>Hey, how's it going today?</motion.h1>
+                <h1>Hey, how's it going today?</h1>
                 <ul className="moods">
                     {
                         moods.map(({ score, src }) => {
