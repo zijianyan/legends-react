@@ -11,7 +11,6 @@ export function getTopics() {
 export function getActivity(topic) {
     return axios.get(`/activity?topic=${topic}`)
         .then( res => {
-            console.log('getActivity service, res.data:', res.data)
             return res.data
         })
         .catch( err => console.log('err:', err))

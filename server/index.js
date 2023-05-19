@@ -24,6 +24,7 @@ app.get('/topics', async (req, res, next)=> {
         res.send(choices)
     } catch (err) {
         console.log('err:', err)
+        res.send(err)
     }
 })
 
@@ -51,7 +52,6 @@ app.get('/activity', async (req, res, next)=> {
 
 app.post('/mood', (req, res, next)=> {
     const mood = req.body
-    console.log('mood:', mood)
     // save mood to database here with userId, chosenTopic, activityText, and phase: start | end
     res.status(201).send(mood)
 })
