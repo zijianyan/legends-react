@@ -31,6 +31,7 @@ export default function ActivityInstructions ({ chosenTopic, videoId, activityTe
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen
                                     style={{ borderRadius: '50px'}}
+                                    className="shadow"
                                 >
                                 </iframe>
                             </div>

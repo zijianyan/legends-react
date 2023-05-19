@@ -48,6 +48,10 @@ li {
   color: #61dafb;
 }
 
+.shadow {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

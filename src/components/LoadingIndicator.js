@@ -18,7 +18,7 @@ export default function LoadingIndicator({ loading }) {
                   animate={slideInAnimate}
                   transition={slideInTransition}
                 >
-                  <img src={logo} className="App-logo" alt="logo" />
+                  <img src={logo} className="App-logo shadow" alt="logo" />
                   <h3>{`Hang on - ${chooseRandom(LOADING_MESSAGES)}...`}</h3>
                 </motion.div>
               )
