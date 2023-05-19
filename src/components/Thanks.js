@@ -4,7 +4,7 @@ export default function Thanks () {
     return (
         <>
             <h1>Thanks.</h1>
-            <p>It was great playing together. See you tomorrow!</p>
+            <p>It was great playing together.<br/>See you tomorrow!</p>
         </>
     )
 }

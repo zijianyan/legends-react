@@ -9,7 +9,12 @@ export default function ActivityInstructions ({ chosenTopic, videoId, activityTe
         <>
             {
                 activityText && videoId
-                    ?   <>
+                    ?   <motion.div
+                            animate={slideInAnimate}
+                            initial={slideInInitial}
+                            transition={slideInTransition}
+                            style={{ maxWidth: '80vw'}}
+                        >
                             <div id="activity">
                                 <h1>{chosenTopic}</h1>
                                 <p style={{ textAlign: 'left' }}>
@@ -25,6 +30,7 @@ export default function ActivityInstructions ({ chosenTopic, videoId, activityTe
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen
+                                    style={{ borderRadius: '50px'}}
                                 >
                                 </iframe>
                             </div>
@@ -32,7 +38,7 @@ export default function ActivityInstructions ({ chosenTopic, videoId, activityTe
                                 <h3>When you're finished, click below!</h3>
                                 <motion.button whileHover={whileHover} style={{...buttonStyle, marginBottom: '100px'}} onClick={handleClickActivityFinish}>Next</motion.button>
                             </div>
-                        </>
+                        </motion.div>
                     :   <></>
             }
 
